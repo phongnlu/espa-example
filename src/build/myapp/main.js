@@ -16,10 +16,10 @@ if (ESPA.store.get('app/context/mode') === 'non-test') {
         'Object.values', 
         'fetch', 
         'Promise'
-    ], _main);
+    ], main);
 }
 
-function _main() {
+export function main() {
     registerRoutes();
     //auto start the first route
     ESPA.navigate('foo');
