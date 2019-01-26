@@ -1,0 +1,32 @@
+{
+    "extends": ["eslint:recommended", "plugin:promise/recommended", "google"],
+    "parserOptions": {
+        "ecmaVersion": 6,
+        "sourceType": "module"
+    },
+    "globals": {
+        "ESPA": false,
+        "Promise": false,
+        "fetch": false,
+        "window": false,
+        "document": false,
+        "console": false,
+        "describe": false,
+        "before": false,
+        "beforeEach": false,
+        "after": false,
+        "afterEach": false,
+        "sinon": false,
+        "it": false,
+        "xit": false,
+        "expect": false
+    },
+    "plugins": [
+        "promise"
+    ],
+    "rules": {
+        "require-jsdoc" : 0,
+        "max-len": ["error", { "code": 120 }],
+        "indent": ["error", 4]
+    }
+}

@@ -1,5 +1,5 @@
-import { getCss, bindEvents } from '../utils.js';
-import { getDummyJsonAsPromise } from '../services/dummy.js';
+import {getCss, bindEvents} from '../utils.js';
+import {getDummyJsonAsPromise} from '../services/dummy.js';
 import tpl from '../views/bar.html';
 
 let viewData = null;
@@ -9,10 +9,10 @@ let factoryScope = null;
 const factory = ((injected) => {
     const self = {
         cfg: (injected && injected.cfg) ? injected.cfg : null,
-        tpl: (injected && injected.tpl) ? injected.tpl : tpl
-    }        
-    
-    //overridding
+        tpl: (injected && injected.tpl) ? injected.tpl : tpl,
+    };
+
+    // overridding
     factoryScope = ESPA.factoryMixin(self, injected);
 
     init();
@@ -29,17 +29,18 @@ function _registerRouteCallback(data) {
 
     return Promise.all([
         ESPA.loadResource.css(getCss()),
-        getDummyJsonAsPromise()
-    ])   
-    .then((results) => {
-        serviceData = results[1];
-        viewData = Object.assign(viewData, serviceData);
-        _displayView();
-    })
-    .catch(e => {        
-        ESPA.logger.error(e);
-        return Promise.reject({error: '_registerRouteCallback promise chain terminated'});
-    });
+        getDummyJsonAsPromise(),
+    ])
+        .then((results) => {
+            serviceData = results[1];
+            viewData = Object.assign(viewData, serviceData);
+            _displayView();
+            return;
+        })
+        .catch((e) => {
+            ESPA.logger.error(e);
+            return Promise.reject({error: '_registerRouteCallback promise chain terminated'});
+        });
 }
 
 function _displayView() {
@@ -48,7 +49,7 @@ function _displayView() {
     document.getElementById('main-container').style.display = 'block';
 
     bindEvents({
-        'click #go-to-foo': _onGoToFoo        
+        'click #go-to-foo': _onGoToFoo,
     });
 }
 
@@ -58,4 +59,4 @@ function _onGoToFoo(e) {
     ESPA.navigate('foo');
 }
 
-export { factory, _registerRouteCallback };
+export {factory, _registerRouteCallback};

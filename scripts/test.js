@@ -1,4 +1,4 @@
-if (process.argv.length < 2) {
+if (process.argv.length < 3) {
     console.error('ERROR - missing arguments...');
     console.log('INFO - please use the command as: npm run test <product>, ie: npm run test myapp');
     process.exit(1);

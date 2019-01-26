@@ -1,0 +1,8 @@
+jspm_packages/*
+scripts/*
+dist/*
+coverage/*
+tests/*
+jspm.config.js
+karma.conf.js
+src/build/myapp/polyfill/*

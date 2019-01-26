@@ -2,11 +2,11 @@ export function getApiHost() {
     return 'http://localhost:8888/';
 }
 
-export function getSpaHost() {    
+export function getSpaHost() {
     return 'http://localhost:8888/';
 }
 
-export function getCss() {    
+export function getCss() {
     return `${getSpaHost()}src/build/${getCurrentContext()}/styles/${getCurrentContext()}.css`;
 }
 
@@ -15,20 +15,20 @@ function getCurrentContext() {
 }
 
 export function bindEvents(obj) {
-    for (const key in obj) {
+    for (const key in obj) {/* eslint-disable-line guard-for-in */
         const keyArr = key.split(' ');
         const event = keyArr[0];
         const selector = keyArr[1];
         const handler = obj[key];
         const els = document.querySelectorAll(selector);
-  
+
         for (let i = 0; i < els.length; ++i) {
             const el = els[i];
             el.addEventListener(event, handler);
         }
     }
 }
-  
+
 export function getCookie(cname) {
     const name = `${cname}=`;
     const ca = document.cookie.split(';');
@@ -76,10 +76,13 @@ export function polyfill(polyfillArr, callback) {
             _checkPolyfillReady(polyfillArr, polyfillArrReady, callback);
         } else {
             ESPA.logger.debug(`utils.polyfill, loading: ${ns}`);
-            ESPA.loadResource.jsCallback(`${getSpaHost()}src/build/${getCurrentContext()}/polyfill/${ns.toLowerCase()}.js`, () => {
-                polyfillArrReady.push(ns);
-                _checkPolyfillReady(polyfillArr, polyfillArrReady, callback);
-            });
+            ESPA.loadResource.jsCallback(
+                `${getSpaHost()}src/build/${getCurrentContext()}/polyfill/${ns.toLowerCase()}.js`,
+                () => {
+                    polyfillArrReady.push(ns);
+                    _checkPolyfillReady(polyfillArr, polyfillArrReady, callback);
+                }
+            );
         }
     }
 }
