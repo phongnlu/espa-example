@@ -2,19 +2,17 @@
 
 import * as fooCtrl from 'src/build/myapp/controllers/foo.js';
 import * as dummySvc from 'src/build/myapp/services/dummy.js';
+import * as localeSvc from 'src/build/myapp/services/localization.js';
+import localeJson from 'src/build/myapp/locale/en.json';
+import dummyJson from 'src/build/myapp/mock/dummy.json';
 
 describe('foo controller', () => {
     ESPA.store.set('app/context/mode', 'test');
 
-    const dummyJson = {
-        'data': {
-            'foo': 'Hello Foo',
-            'bar': 'Hello Bar',
-        },
-    };
-
     before(() => {
         sinon.stub(ESPA.loadResource, 'css').resolves('css loaded');
+        localeSvc.setLang('en');
+        localeSvc.setLocale(localeJson);
         fooCtrl.factory();
     });
 
@@ -62,7 +60,7 @@ describe('foo controller', () => {
         return fooCtrl._registerRouteCallback()
             .then(() => {
                 const el = document.getElementById('main-content');
-                expect(el.innerHTML).that.does.include(dummyJson.data.foo);
+                expect(el.innerHTML).that.does.include(dummyJson.data.firstName);
                 return;
             });
     });

@@ -1,6 +1,6 @@
 {
     "data": {
-        "foo": "Hello Foo",
-        "bar": "Hello Bar"
+        "firstName": "John's",
+        "lastName": "Doe"
     }
 }

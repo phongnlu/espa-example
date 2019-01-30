@@ -1,6 +1,7 @@
 import '../../../node_modules/espa/barebone.js';
 import {polyfill} from './utils.js';
 import {registerRoutes} from './services/routeRegistration.js';
+import {loadLocaleAsPromise, setLocale, setLang} from './services/localization.js';
 
 ESPA.store.set('app/context/name', 'myapp');
 if (!ESPA.store.get('app/context/mode')) {
@@ -20,7 +21,18 @@ if (ESPA.store.get('app/context/mode') === 'non-test') {
 }
 
 export function main() {
-    registerRoutes();
-    // auto start the first route
-    ESPA.navigate('foo');
+    setLang('en');
+
+    return loadLocaleAsPromise()
+        .then((result) => {
+            setLocale(result);
+            registerRoutes();
+            // auto start the first route
+            ESPA.navigate('foo');
+            return;
+        })
+        .catch((e) => {
+            ESPA.logger.error(e);
+            throw new Error('loadLocaleAsPromise failed');
+        });
 }

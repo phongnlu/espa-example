@@ -1,5 +1,3 @@
-import {getApiHost} from '../utils.js';
-
 export function apiGetAsPromise(obj) {
     // check cache
     const cache = ESPA.store.get(obj.url);
@@ -45,7 +43,7 @@ export function apiPostAsPromise(obj) {
 }
 
 function _apiSend(url, data) {
-    return fetch(getApiHost() + url, Object.assign(data, {
+    return fetch(url, Object.assign(data, {
         headers: _getHeaders(),
         credentials: 'include',
     }))

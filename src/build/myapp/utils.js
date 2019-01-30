@@ -10,7 +10,7 @@ export function getCss() {
     return `${getSpaHost()}src/build/${getCurrentContext()}/styles/${getCurrentContext()}.css`;
 }
 
-function getCurrentContext() {
+export function getCurrentContext() {
     return ESPA.store.get('app/context/name');
 }
 

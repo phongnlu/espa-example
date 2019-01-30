@@ -1,6 +1,8 @@
 /* eslint-disable no-console, no-invalid-this */
 
 import * as mainCtrl from 'src/build/myapp/main.js';
+import * as localeSvc from 'src/build/myapp/services/localization.js';
+import localeJson from 'src/build/myapp/locale/en.json';
 
 describe('main controller', () => {
     ESPA.store.set('app/context/mode', 'test');
@@ -21,9 +23,14 @@ describe('main controller', () => {
 
     it('should navigate to foo', () => {
         sinon.stub(ESPA, 'navigate').callsFake(() => {});
+        sinon.stub(localeSvc, 'loadLocaleAsPromise').resolves(localeJson);
 
-        mainCtrl.main();
-        ESPA.navigate.should.have.been.calledWith('foo');
-        ESPA.navigate.restore();
+        return mainCtrl.main()
+            .then(() => {
+                ESPA.navigate.should.have.been.calledWith('foo');
+                ESPA.navigate.restore();
+                localeSvc.loadLocaleAsPromise.restore();
+                return;
+            });
     });
 });
